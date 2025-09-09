@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> i love you </title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #000000 0%, #f18603 100%);
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .heart {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            transform: rotate(-45deg);
+            animation: heartbeat 1.5s infinite;
+            margin: 0 auto;
+        }
+
+        .heart:before,
+        .heart:after {
+            content: "";
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+        }
+
+        .heart:before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart:after {
+            top: 0;
+            left: 50px;
+        }
+
+        @keyframes heartbeat {
+            0% {
+                transform: rotate(-45deg) scale(1);
+            }
+           
+            50% {
+                transform: rotate(-45deg) scale(1.2);
+            }
+           
+            100% {
+                transform: rotate(-45deg) scale(1);
+            }
+        }
+
+        h1 {
+            color: #d32f2f;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="heart"></div>
+    </div>
+</body>
+</html>
