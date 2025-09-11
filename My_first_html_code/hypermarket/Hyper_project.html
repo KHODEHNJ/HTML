@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HyperMarket</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 0 0 15px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ae0c9b, #ff758c, #3a16d9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 32px;
+        }
+
+        /* Search Bar Styles */
+        .search-container {
+            display: flex;
+            align-items: center;
+            background: white;
+            border-radius: 30px;
+            padding: 5px 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 50%;
+        }
+
+        .search-container input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+            background: transparent;
+        }
+
+        .search-container button {
+            background: linear-gradient(45deg, #ff7eb3, #ff758c);
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-container button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.4);
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #555;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255, 117, 140, 0.1);
+            color: #ff758c;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 22px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+
+        /* Category Section */
+        .categories {
+            display: flex;
+            justify-content: space-between;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            width: 23%;
+            min-width: 250px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .category:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .category i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #534b4e, #cd2a46);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .category h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .category p {
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* Products Section */
+        .products {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 50px 0;
+        }
+
+        .product {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            overflow: hidden;
+            width: 32%;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .product:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-img {
+            height: 200px;
+            background: linear-gradient(45deg, #a78bea, #c472ac);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 50px;
+        }
+
+        .product-content {
+            padding: 20px;
+        }
+
+        .product h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #444;
+        }
+
+        .product p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .product .price {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ef0e33;
+            margin-bottom: 15px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #eba0bf, #ff758c);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 117, 140, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px 0;
+            margin-top: 50px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+
+        .footer-section {
+            width: 30%;
+            min-width: 300px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #444;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #ff7eb3, #ff758c);
+            border-radius: 3px;
+        }
+
+        .footer-section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
+            color: #666;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .category {
+                width: 48%;
+            }
+
+            .product {
+                width: 48%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+            }
+
+            .search-container {
+                width: 100%;
+                margin: 15px 0;
+            }
+
+            nav ul {
+                margin-top: 15px;
+                justify-content: center;
+            }
+
+            .category {
+                width: 100%;
+            }
+
+            .product {
+                width: 100%;
+            }
+
+            .footer-section {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-store"></i>
+                HyperMarket
+            </div>
+
+            <div class="search-container">
+                <input type="text" placeholder="Search for products...">
+                <button><i class="fas fa-search"></i> Search</button>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Products</a></li>
+                    <li><a href="#">Categories</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="hero">
+            <h1>Welcome to HyperMarket</h1>
+            <p>Discover a world of colorful products with amazing deals and fast delivery!</p>
+            <a href="#" class="btn">Shop Now</a>
+        </section>
+
+        <section class="categories">
+            <div class="category">
+                <i class="fas fa-utensils"></i>
+                <h3>Food & Beverages</h3>
+                <p>Fresh groceries, snacks, drinks and more for your daily needs.</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-soap"></i>
+                <h3>Home & Cleaning</h3>
+                <p>Cleaning supplies, household items and organization solutions.</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Health & Beauty</h3>
+                <p>Cosmetics, personal care, vitamins and wellness products.</p>
+            </div>
+            <div class="category">
+                <i class="fas fa-baby"></i>
+                <h3>Baby Products</h3>
+                <p>Diapers, baby food, toys and everything for your little ones.</p>
+            </div>
+        </section>
+
+        <section class="products">
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-wine-bottle"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Premium Olive Oil</h3>
+                    <p>Extra virgin olive oil imported from Italy. Perfect for salads and cooking.</p>
+                    <div class="price">$19.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-cheese"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Organic Cheese</h3>
+                    <p>Aged cheddar cheese made from organic milk. Rich flavor and creamy texture.</p>
+                    <div class="price">$8.99</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+            <div class="product">
+                <div class="product-img">
+                    <i class="fas fa-cookie"></i>
+                </div>
+                <div class="product-content">
+                    <h3>Me</h3>
+                    <p>Love.</p>
+                    <div class="price">$love</div>
+                    <a href="#" class="btn">Add to Cart</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Us</h3>
+                    <p>HyperMarket is your one-stop shop for all household needs. We offer quality products at
+                        affordable prices with fast delivery.</p>
+                    <p>Our mission is to make shopping convenient and enjoyable for everyone.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Tehransar , Tehran ,Iran </p>
+                    <p><i class="fas fa-phone"></i> +98 *******</p>
+                    <p><i class="fas fa-envelope"></i> info@hypermarket.com</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <p><a href="#">Special Offers</a></p>
+                    <p><a href="#">New Products</a></p>
+                    <p><a href="#">Best Sellers</a></p>
+                    <p><a href="#">Delivery Information</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HyperMarket. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
